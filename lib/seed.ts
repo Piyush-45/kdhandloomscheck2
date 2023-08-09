@@ -8,7 +8,7 @@ export async function seedSanityData() {
     const product = {
       _type: "product",
       _id: item.id,
-      name: item.name,
+      name: item.title,
       currency: item.currency,
       description: item.description,
       price: item.price,
@@ -45,7 +45,7 @@ async function seedSanityImages() {
     }
     await client
       .patch(item.id)
-      .set({ "slug.current": slugify(item.name), images })
+      .set({ "slug.current": slugify(item.title), images })
       .commit()
   })
 }
