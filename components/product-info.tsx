@@ -15,11 +15,12 @@ interface Props {
 }
 
 export function ProductInfo({ product }:Props) {
- const{addItem} = useShoppingCart()
+ const{addItem, cartDetails, clearCart} = useShoppingCart()
 
   function addToCart(){
     const item = {
-      ...product
+      ...product,
+      name: product.title
     }
     addItem(item)
   }
