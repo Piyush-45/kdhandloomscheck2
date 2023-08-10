@@ -10,7 +10,8 @@ import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 
 export const metadata: Metadata = {
-  title: "KD HANDLOOMS"
+  title: "KD HANDLOOMS",
+
 }
 
 interface RootLayoutProps {
@@ -21,7 +22,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
+
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"></meta>
+        </head>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
@@ -37,6 +41,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
           </Providers>
         </body>
+
       </html>
     </>
   )
