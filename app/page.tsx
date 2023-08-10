@@ -10,6 +10,7 @@ import { ProductGrid } from "@/components/product-grid"
 import { product } from "@/sanity/schemas/product"
 import Image from "next/image"
 import { urlForImage } from "@/sanity/lib/image"
+import { ProductFilters } from "@/components/product-filters"
 
 interface Props { 
   searchParams:{
@@ -35,12 +36,12 @@ export default async function Page({searchParams} : Props) {
   const dateOrder = date ? `|order(_createAt${date})` :""
   const order = `${priceOrder}${dateOrder}`
   // console.log(searchParams)
-  const productFilter = `*[_type=="product"]`
+  const productFilter = `_type == "product"`
   const categoryFilter = category ? `&& "${category}" in categories ` :""
-  const filter = `*[${productFilter} ${categoryFilter}]`
-  const products = await client.fetch<SanityProduct[]>(groq`${productFilter} ${order} {
+  const filter = `*[${productFilter}${categoryFilter}]`
+  const products = await client.fetch<SanityProduct[]>(groq`${filter}${order} {
     _id, _CreateAt, title, sku, price, image, Currency, price, description, "slug": slug.current
-  }`);
+  }`); 
 
   // console.log(products)
 
@@ -60,7 +61,7 @@ export default async function Page({searchParams} : Props) {
                 
               )
              })} */}
-              {products.length}result{products.length === 1 ? "" : "s"}
+              {products?.length}result{products?.length === 1 ? "" : "s"}
             </h1>
             {/* Product Sort */}
             {/* <ProductSort /> */}
@@ -72,7 +73,7 @@ export default async function Page({searchParams} : Props) {
             </h2>
             <div className={cn("grid grid-cols-1 gap-x-8 gap-y-10 ", products.length > 0 ? 'lg:grid-cols-4' : 'lg:grid-cols-[1fr_3fr')}>
               <div className="hidden lg:block">
-                {/* <ProductFilters /> */}
+                <ProductFilters />
 
               </div>
               <ProductGrid products={products} />
