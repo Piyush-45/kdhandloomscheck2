@@ -49,7 +49,7 @@ import { Button } from "@/components/ui/button";
 export function CartSummary() {
   const { totalPrice, formattedTotalPrice, cartCount, cartDetails } = useShoppingCart();
 
-  const cartItems = Object.entries(cartDetails).map(([_, product]) => product);
+  const cartItems = Object.entries(cartDetails!).map(([_, product]) => product);
 
   const [isProcessing, setIsProcessing] = useState(false);
 
